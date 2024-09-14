@@ -174,7 +174,7 @@ def main():
 
     with st.container():
         st.title("Breast Cancer Predictor")
-        st.write("Please entere the relevant information to generate a prediction.")
+        st.write("Please enter the relevant measurements to generate a breast cancer prediction.")
 
     col1, col2, col3 = st.columns([4,1,1])
 
