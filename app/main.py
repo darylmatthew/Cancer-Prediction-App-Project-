@@ -146,19 +146,22 @@ def add_predictions(input_data):
     scaler = pickle.load(open("model/scaler.pkl", 'rb'))
 
     # reshape turns the inputs into a 1 dimensional array (originally 2)
-    input_array = np.array(list(input_data.values())).reshape(1,-1)
+    input_array = np.array(list(input_data.values())).reshape(1, -1)
     # scale the input values
     input_array_scaled = scaler.transform(input_array)
     # make prediction based on scaled input values array
-    prediciton = model.predict(input_array_scaled)
-    
-    if prediciton[0] == 0:
-        st.write("Benign")
-    else:
-        st.write("Malicious")
+    prediction = model.predict(input_array_scaled)
+    probabilities = model.predict_proba(input_array_scaled)[0]
 
-    st.write("Probability of being benign: " + str(model.predict_proba(input_array_scaled)[0][0]))
-    st.write("Probability of being malicous: " + str(model.predict_proba(input_array_scaled)[0][1]))
+    if prediction[0] == 0:
+        st.write("### Prediction: **Benign**")
+    else:
+        st.write("### Prediction: **Malicious**")
+
+    # Display probabilities as percentages with bold formatting
+    st.write(f"Probability of being benign: **{probabilities[0] * 100:.2f}%**")
+    st.write(f"Probability of being malicious: **{probabilities[1] * 100:.2f}%**")
+
 
 
 
